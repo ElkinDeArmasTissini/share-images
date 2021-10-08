@@ -1,19 +1,32 @@
 <template>
   <div>
-    <a-modal
-      :visible="isModal"
-      width="70%"
-      :maskClosable="false" 
-      @cancel="closeModal"
-      :title="title"
-      class="text-center"
-      :footer="null"
-      style="top: 1%"
-    >
+    <div class="text-center" style="top: 1%">
       <a-tabs v-model:activeKey="activeKey">
         <a-tab-pane key="1" tab="Imagenes" class="modalImage">
           <div class="container">
+            <div class="row center">
+              <div class="col-md-3"></div>
+              <div class="col-md-4 ">
+                <a-input
+                  type="text"
+                  class="input mx-2"
+                  :value="image.redirect"
+                  id="myInput"
+                />
+                
+              </div>
+              <div class="col-md-2">
+              
+                <a-button @click="copy" class="btn btn-secondary">
+                  Copiar enlace
+                </a-button>
+              </div>
+
+            </div>
+            <br>
             <div class="row">
+              <!-- <label id="url">{{image.redirect}}</label> -->
+
               <div
                 class="col-md-2 my-2 divImage"
                 v-for="image in images"
@@ -25,17 +38,34 @@
                   @click="selectImage(image)"
                 />
               </div>
+              {{ image.slug }}
             </div>
           </div>
         </a-tab-pane>
         <a-tab-pane key="2" tab="Subir" force-render>
-          <a-input
-            type="text"
-            v-model:value="slug"
-          ></a-input>
-
-        <a :href="image.redirect">{{image.redirect}}</a>
-          <div  class="file-select">
+          <div class="row center">
+            <div class="col-md-4 offset-md-2">
+              <a-input
+              placeholder="https://tissini.app/"
+                class="input mx-2"
+                type="text"
+                v-model:value="slug"
+              ></a-input>
+            </div>
+            <div class="col-md-4">
+              <div class="file-select">
+                <input
+                  type="file"
+                  name="file"
+                  @change="setImage"
+                  accept=".png,.jpg,.jpeg,.pneg"
+                  aria-label="Archivo"
+                />
+              </div>
+            </div>
+          </div>
+          <label>{{ image.redirect }}</label>
+          <!-- <div class="file-select">
             <input
               type="file"
               name="file"
@@ -43,10 +73,10 @@
               accept=".png,.jpg,.jpeg,.pneg"
               aria-label="Archivo"
             />
-          </div>
+          </div> -->
         </a-tab-pane>
       </a-tabs>
-    </a-modal>
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -59,51 +89,59 @@ import {
   statusImage,
   uploading,
   maxLengthBody,
-  image
+  image,
 } from "../../composables/images/useImages";
 import { Image } from "../../interfaces/images.interface";
 export default defineComponent({
   props: {
     isModal: Boolean,
-    indexImage: Number
+    indexImage: Number,
   },
 
   setup(props, { emit }) {
-    const { getImages, saveImage } = useImages();
+    const { getImages, saveImage, getImage } = useImages();
     let title = ref<String>("Insertar Imagen");
     const totalImages = ref(0);
-    let slug = ref<string> ("sss")
+    let slug = ref<string>("");
+    // let fileImage = reactive<>
     const closeModal = () => {
-      console.log("emit"); 
-      return emit("closeModal", false)
-      };
+      console.log("emit");
+      return emit("closeModal", false);
+    };
 
-    const selectImage = (img: Image) => {
+    const selectImage = async (img: Image) => {
       //asing url
-      image.url = img.url
-      image.slug = img.slug
+
+      const dataImage = await getImage(img.id);
+      image.redirect = dataImage.data.link;
+      //  console.log(dataImage.data.link);
+
       modalStatusImage.value = false;
     };
 
     const setImage = (event: any) => {
       let file = event.target.files[0];
-      console.log("file");
-      console.log(file);
-      
       saveImage(file, slug.value);
+    };
 
-      
+    const copy = () => {
+      let url = document.getElementById("myInput");
+      console.log("copiar");
+      url.select();
+      url.setSelectionRange(0, 99999); /* For mobile devices */
+
+      /* Copy the text inside the text field */
+      navigator.clipboard.writeText(url.value);
+      // alert("Copied the text: " + url.value);
     };
 
     onMounted(async () => {
       console.log("modal");
       //@ts-ignore
-      console.log(import.meta.env.VITE_SECRET)
+      console.log(import.meta.env.VITE_SECRET);
       images.value = [];
       let dataImages = await getImages();
-      images.value = dataImages.data.images
-
-     
+      images.value = dataImages.data.images;
     });
 
     return {
@@ -116,7 +154,9 @@ export default defineComponent({
       setImage,
       uploading,
       slug,
-      image
+      image,
+      getImage,
+      copy,
     };
   },
 });
@@ -172,5 +212,15 @@ img:hover {
   to {
     opacity: 0.2;
   }
+}
+
+.input {
+  border-radius: 10px;
+  resize: none;
+}
+
+.center {
+  text-align: center;
+  align-items: center;
 }
 </style>

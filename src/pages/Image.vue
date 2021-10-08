@@ -2,9 +2,7 @@
 <div class="home" style="background:black">
     <a :href="slug" style="background:blue; width:1000px">
         <img :src="imagen" alt="" style="width:100%; heigth:100%">
-
     </a>
-
 </div>
     
 </template>

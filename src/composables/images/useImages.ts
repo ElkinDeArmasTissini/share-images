@@ -1,6 +1,8 @@
 import axios,{AxiosRequestConfig, AxiosResponse} from "axios";
 import { reactive, ref } from "vue";
 import { Image } from "../../interfaces/images.interface";
+import http from "../../utils/httpHandlers.utils";
+
 /**
  * @description Endpoint to interests
  * @type {String}
@@ -22,6 +24,7 @@ export let uploading = ref<Boolean>(false)
 export let maxLengthBody = ref<String>('200')
 
 export let image = reactive<Image>({url: '', slug: '', redirect: ''})
+const header: AxiosRequestConfig = http.getHeader();
 
 
 const useImages = () => {
@@ -32,7 +35,8 @@ const useImages = () => {
    */
   const getImages = async ():Promise<AxiosResponse> => {
     try {
-      return await axios.get(`${url}`);
+      
+      return await axios.get(`${url}`, header);
     } catch (error) {
       throw new Error(error);
     }
@@ -43,9 +47,9 @@ const useImages = () => {
    * @param {Number} id image is
    * @returns Promise
    */
-  const getImage = async (id: number):Promise<AxiosResponse> => {
+  const getImage = async (id: number | undefined):Promise<AxiosResponse> => {
     try {
-      return await axios.get(`${url}/${id}`);
+      return await axios.get(`${url}/${id}`, header);
     } catch (error) {
       throw new Error(error);
     }

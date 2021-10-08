@@ -1,0 +1,41 @@
+:root {
+  --color-marine: #1890ff;
+  --color-purple: rgb(51, 102, 255);
+}
+
+.createButton {
+  background-color: var(--color-purple);
+  color: white;
+  border-color: var(--color-purple);
+  border-radius: 5px;
+}
+
+.button-icon {
+  border-color: var(--color-purple);
+  border-radius: 5px;
+}
+.icon {
+  color: var(--color-purple);
+}
+
+.header{
+  background: var(--color-purple);
+  padding: 15px;
+  height: 50px
+}
+
+.ant-menu.ant-menu-dark .ant-menu-item-selected, .ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected {
+  background-color: var(--color-purple) !important;
+  border-radius: 50px !important;
+  transition-duration: 1.5s !important;
+}
+
+.ant-menu-item .ant-menu-item-selected{
+  background-color: var(--color-purple) !important;
+  border-radius: 50px !important;
+  transition-duration: 1.5s !important;
+}
+
+.ant-progress-text {
+  font-size: 1.5em !important;
+}
