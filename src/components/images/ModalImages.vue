@@ -155,7 +155,7 @@ export default defineComponent({
          url = document.getElementById("myInput2");
       }
       
-      console.log("copiar");
+      // console.log("copiar");
       url.select();
       url.setSelectionRange(0, 99999); /* For mobile devices */
 
@@ -167,9 +167,9 @@ export default defineComponent({
 
 
     onMounted(async () => {
-      console.log("modal");
+      // console.log("modal");
       //@ts-ignore
-      console.log(import.meta.env.VITE_SECRET);
+      // console.log(import.meta.env.VITE_SECRET);
       images.value = [];
       let dataImages = await getImages();
       images.value = dataImages?.data.images;

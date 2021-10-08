@@ -69,8 +69,8 @@ const useImages = () => {
 
       axios.post(`${url}`,formData,{headers: { 'Content-Type': 'multipart/form-data' }})
       .then((response)=>{
-        console.log("response");
-        console.log(response);
+        // console.log("response");
+        // console.log(response);
         image.redirect = response.data.link
         modalStatusImage.value = false;
         statusImage.value = true

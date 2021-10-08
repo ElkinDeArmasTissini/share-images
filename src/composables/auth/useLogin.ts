@@ -63,10 +63,10 @@ const useLogin = () => {
         if (response.data.user) {
           messageNotification(1, `Bienvenido ${response.data.user.names}`,2);
           setLocalStorage(response);
-          console.log("voy a ");
+          // console.log("voy a ");
           
           router.push("/imagenes")
-          console.log("asd");
+          // console.log("asd");
           
         } else {
           messageNotification(0, response.data.message,2);
@@ -90,8 +90,8 @@ const useLogin = () => {
    * @param {AxiosResponse} data 
    */
   const setLocalStorage = async (response:AxiosResponse):Promise<void> => {
-    console.log("response");
-    console.log(response);
+    // console.log("response");
+    // console.log(response);
     
     auth.setAuth(JSON.stringify(response.data.user))
     auth.setToken(response.data.token)

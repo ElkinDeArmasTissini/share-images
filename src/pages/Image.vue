@@ -18,7 +18,7 @@ export default defineComponent({
     setup() {
         let imagen = ref<string>('')
         let slug = ref<string>('')
-        console.log("onmounted");
+        // console.log("onmounted");
         const route = useRoute()
 
         let token = ''
