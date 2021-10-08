@@ -33,12 +33,12 @@ const useImages = () => {
    * @description Method to obtain all images
    * @returns Promise
    */
-  const getImages = async ():Promise<AxiosResponse> => {
+  const getImages = async ()=> {
     try {
       
       return await axios.get(`${url}`, header);
     } catch (error) {
-      throw new Error(error);
+     // throw new Error(error);
     }
   };
 
@@ -47,11 +47,11 @@ const useImages = () => {
    * @param {Number} id image is
    * @returns Promise
    */
-  const getImage = async (id: number | undefined):Promise<AxiosResponse> => {
+  const getImage = async (id: number | undefined) => {
     try {
       return await axios.get(`${url}/${id}`, header);
     } catch (error) {
-      throw new Error(error);
+     // throw new Error(error);
     }
   };
 

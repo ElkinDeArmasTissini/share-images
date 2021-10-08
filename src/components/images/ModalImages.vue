@@ -136,7 +136,7 @@ export default defineComponent({
 
       const dataImage = await getImage(img.id);
       //image.redirect = dataImage.data.link;
-      shorLink.value = dataImage.data.link;
+      shorLink.value = dataImage?.data.link;
       //  console.log(dataImage.data.link);
 
       modalStatusImage.value = false;
@@ -148,7 +148,7 @@ export default defineComponent({
     };
 
     const copy = (type:string) => {
-      let url;
+      let url:any;
       if(type == "tab1"){
           url = document.getElementById("myInput");
       }else{
@@ -172,7 +172,7 @@ export default defineComponent({
       console.log(import.meta.env.VITE_SECRET);
       images.value = [];
       let dataImages = await getImages();
-      images.value = dataImages.data.images;
+      images.value = dataImages?.data.images;
     });
 
     return {

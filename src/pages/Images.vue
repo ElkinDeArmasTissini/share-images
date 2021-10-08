@@ -34,9 +34,6 @@
           }"
         >
           <modal-images
-            :isModal="isModal"
-            @closeModal="closeModal"
-            v-if="isModal"
           />
         </a-layout-content>
       </a-layout>

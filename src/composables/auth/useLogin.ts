@@ -74,7 +74,7 @@ const useLogin = () => {
       });
     } catch (error) {
       sending.value = true;
-      throw new Error(error);
+      //throw new Error(error);
     }
   };
 
