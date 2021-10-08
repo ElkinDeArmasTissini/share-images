@@ -9,6 +9,7 @@ const routes: Array<RouteRecordRaw> = [
 
     {
         path: "/image",
+        name: "image",
         component: () => import("../pages/Image.vue"),
         meta: { requiresAuth: false }
     },
@@ -45,7 +46,7 @@ router.beforeEach((to,from,next)=>{
         next({path:"/login"})
       } 
     }else{
-      if(token)next({path:"/imagenes"})
+      if(token && to.name != "image")next({path:"/imagenes"})
       else next()
     }
   })
