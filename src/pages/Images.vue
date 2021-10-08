@@ -8,9 +8,6 @@
         v-model:selectedKeys="selectedKeys1"
         :style="{ lineHeight: '64px' }"
       >
-        <!-- <a-menu-item key="1">nav 1</a-menu-item>
-        <a-menu-item key="2">nav 2</a-menu-item>
-        <a-menu-item key="3">nav 3</a-menu-item> -->
       </a-menu>
     </a-layout-header>
     <a-layout>
@@ -28,11 +25,6 @@
         </a-menu>
       </a-layout-sider>
       <a-layout style="padding: 0 24px 24px">
-        <!-- <a-breadcrumb style="margin: 16px 0">
-          <a-breadcrumb-item>Home</a-breadcrumb-item>
-          <a-breadcrumb-item>List</a-breadcrumb-item>
-          <a-breadcrumb-item>App</a-breadcrumb-item>
-        </a-breadcrumb> -->
         <a-layout-content
           :style="{
             background: '#fff',
@@ -41,17 +33,6 @@
             minHeight: '280px',
           }"
         >
-
-
-
-
-
-
-
-
-
-
-
           <modal-images
             :isModal="isModal"
             @closeModal="closeModal"

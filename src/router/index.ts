@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router"
-import auth from "../utils/auth.utils"
 
 const routes: Array<RouteRecordRaw> = [
 
@@ -11,7 +10,7 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: "/image",
         component: () => import("../pages/Image.vue"),
-        meta: { requiresAuth: true }
+        meta: { requiresAuth: false }
     },
     {
         path: "/imagenes",

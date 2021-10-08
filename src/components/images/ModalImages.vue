@@ -10,14 +10,14 @@
                 <a-input
                   type="text"
                   class="input mx-2"
-                  :value="image.redirect"
+                  :value="shorLink"
                   id="myInput"
                 />
                 
               </div>
               <div class="col-md-2">
               
-                <a-button @click="copy" class="btn btn-secondary">
+                <a-button @click="copy('tab1')" class="btn btn-secondary">
                   Copiar enlace
                 </a-button>
               </div>
@@ -64,7 +64,26 @@
               </div>
             </div>
           </div>
-          <label>{{ image.redirect }}</label>
+          <br><br>
+          <div class="row center">
+              <div class="col-md-3"></div>
+              <div class="col-md-4 ">
+                <a-input
+                  type="text"
+                  class="input mx-2"
+                  :value="image.redirect"
+                  id="myInput2"
+                />
+                
+              </div>
+              <div class="col-md-2">
+              
+                <a-button @click="copy('tab2')" class="btn btn-secondary">
+                  Copiar enlace
+                </a-button>
+              </div>
+
+            </div>
           <!-- <div class="file-select">
             <input
               type="file"
@@ -103,17 +122,21 @@ export default defineComponent({
     let title = ref<String>("Insertar Imagen");
     const totalImages = ref(0);
     let slug = ref<string>("");
+    let shorLink = ref<string>("")
     // let fileImage = reactive<>
     const closeModal = () => {
       console.log("emit");
       return emit("closeModal", false);
     };
 
+
+
     const selectImage = async (img: Image) => {
       //asing url
 
       const dataImage = await getImage(img.id);
-      image.redirect = dataImage.data.link;
+      //image.redirect = dataImage.data.link;
+      shorLink.value = dataImage.data.link;
       //  console.log(dataImage.data.link);
 
       modalStatusImage.value = false;
@@ -124,8 +147,14 @@ export default defineComponent({
       saveImage(file, slug.value);
     };
 
-    const copy = () => {
-      let url = document.getElementById("myInput");
+    const copy = (type:string) => {
+      let url;
+      if(type == "tab1"){
+          url = document.getElementById("myInput");
+      }else{
+         url = document.getElementById("myInput2");
+      }
+      
       console.log("copiar");
       url.select();
       url.setSelectionRange(0, 99999); /* For mobile devices */
@@ -134,6 +163,8 @@ export default defineComponent({
       navigator.clipboard.writeText(url.value);
       // alert("Copied the text: " + url.value);
     };
+
+
 
     onMounted(async () => {
       console.log("modal");
@@ -157,6 +188,7 @@ export default defineComponent({
       image,
       getImage,
       copy,
+      shorLink
     };
   },
 });
